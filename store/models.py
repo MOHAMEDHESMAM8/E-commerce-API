@@ -3,7 +3,7 @@ from django.db import models
 
 class Collection(models.Model):
     title = models.CharField(max_length=200)
-    features_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+    features_product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True, related_name='+')
 
 
 class Promotion(models.Model):
@@ -12,6 +12,7 @@ class Promotion(models.Model):
 
 
 class Product(models.Model):
+    slug = models.SlugField()
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -38,6 +39,7 @@ class Customer(models.Model):
 class Address(models.Model):
     city = models.CharField(max_length=255)
     street = models.CharField(max_length=255)
+    zip = models.CharField(max_length=7)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 
